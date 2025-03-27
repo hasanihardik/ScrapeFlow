@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import AppProviders from "@/components/providers/AppProviders";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
+import "../styles/globals.css"; // ✅ Ensure this import exists
 import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({
   subsets: ["latin"],
