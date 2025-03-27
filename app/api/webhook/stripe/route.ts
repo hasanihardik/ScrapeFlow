@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import prisma from "@/database/prisma";
-import { Prisma } from '@prisma/client';
 import Stripe from "stripe";
+
+export const dynamic = 'force-dynamic';
 
 async function updateUserCredits(userId: string, credits: number) {
   const userBalance = await prisma.userBalance.upsert({
@@ -61,7 +62,7 @@ export async function POST(req: Request) {
       // Create payment record using raw query
       await prisma.$executeRaw`
         INSERT INTO "Payment" ("id", "userId", "amount", "credits", "status", "stripePaymentId", "createdAt", "updatedAt")
-        VALUES (${Prisma.sql`uuid_generate_v4()`}, ${userId}, ${session.amount_total || 0}, ${credits}, 'completed', ${session.payment_intent as string}, NOW(), NOW())
+        VALUES (uuid_generate_v4(), ${userId}, ${session.amount_total || 0}, ${credits}, 'completed', ${session.payment_intent as string}, NOW(), NOW())
       `;
 
       // Update user credits and log result

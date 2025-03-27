@@ -1,6 +1,8 @@
 import { ExecuteWorkflow } from "@/actions/workflow/executeWorkflow";
 import prisma from "@/database/prisma";
 import { TaskRegistry } from "@/lib/workflow/task/registry";
+
+export const dynamic = 'force-dynamic';
 import { WorkflowExecutionPlan } from "@/types/appNode";
 import {
   ExecutionPhaseStatus,

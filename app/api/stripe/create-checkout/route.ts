@@ -3,6 +3,8 @@ import { auth } from "@clerk/nextjs/server";
 import { createCheckoutSession } from "@/lib/stripe";
 import { CREDIT_PACKAGES } from "@/lib/constants";
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request) {
   try {
     const { userId } = await auth();
