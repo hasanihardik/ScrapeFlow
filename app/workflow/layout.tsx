@@ -1,4 +1,4 @@
-import Logo from "@/components/Logo";
+import Logo from "@/components/logo";
 import { ModeToggle } from "@/components/ThemeButtonToggle";
 import { Separator } from "@/components/ui/separator";
 import { ReactNode } from "react";
