@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../../components/ui/select";
+} from "@ui/select";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 const MonthsOfYear = [

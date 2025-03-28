@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../../../components/ui/card";
+} from "@ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -16,7 +16,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "../../../../components/ui/chart";
+} from "@ui/chart";
 import { Layers2 } from "lucide-react";
 type ChartData = Awaited<ReturnType<typeof GetWorkExecutionStatus>>;
 

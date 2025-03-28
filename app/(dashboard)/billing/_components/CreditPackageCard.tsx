@@ -1,7 +1,7 @@
 "use client";
 
-import { Card } from "../../../../components/ui/card";
-import { Button } from "../../../../components/ui/button";
+import { Card } from "@ui/card";
+import { Button } from "@ui/button";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";

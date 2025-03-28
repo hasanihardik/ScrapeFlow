@@ -6,7 +6,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../../../components/ui/card";
+} from "@ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -14,7 +14,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "../../../../components/ui/chart";
+} from "@ui/chart";
 import { ChartColumnStackedIcon, Layers2 } from "lucide-react";
 import { GetCreditUsageInPeriod } from "@/actions/analytics/getCreditUsageInPeriod";
 type ChartData = Awaited<ReturnType<typeof GetCreditUsageInPeriod>>;
