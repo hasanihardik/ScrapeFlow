@@ -7,11 +7,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "../../../../components/ui/table";
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "../../../../components/ui/skeleton";
 
 interface Payment {
   id: string;
