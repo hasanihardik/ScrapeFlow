@@ -1,6 +1,7 @@
 import { ExecutionEnvironment } from "@/types/execution";
-import puppeteer from "puppeteer";
-import { getInstalledBrowsers, Browser, Cache, detectBrowserPlatform } from '@puppeteer/browsers';
+// Use puppeteer-core and chrome-aws-lambda
+import chromium from 'chrome-aws-lambda';
+import puppeteer from 'puppeteer-core';
 import { LaunchBrowserTask } from "../task/LaunchBrowserTask";
 
 export const LauncherBrowserExecutor = async (
@@ -9,27 +10,19 @@ export const LauncherBrowserExecutor = async (
   try {
     const websiteUrl = environment.getInput("Website Url");
 
-    // Find the installed Chrome executable path
-    const platform = detectBrowserPlatform();
-    if (!platform) {
-      throw new Error('Could not detect browser platform.');
+    // Launch browser using chrome-aws-lambda configuration
+    const executablePath = await chromium.executablePath;
+
+    // Check if executablePath is found, Vercel environment might not have it readily available
+    // In local dev, chromium.executablePath might be null
+    if (!executablePath && process.env.NODE_ENV !== 'development') {
+         throw new Error('Chrome executable not found via chrome-aws-lambda. This should not happen on Vercel.');
     }
-    // Use Vercel's recommended cache path /tmp
-    const cache = new Cache('/tmp/puppeteer');
-    const installedBrowsers = await getInstalledBrowsers({ cacheDir: cache.rootDir });
-    const chromeExecutable = installedBrowsers.find(b => b.browser === Browser.CHROME);
-    if (!chromeExecutable) {
-      // Log the specific cache directory being checked
-      environment.log.error(`Chrome executable not found in expected cache directory: ${cache.rootDir}`);
-      throw new Error(`Chrome executable not found in cache (${cache.rootDir}). Ensure the build step 'npx @puppeteer/browsers install chrome@stable' completed successfully and used this cache path.`);
-    }
-    const executablePath = chromeExecutable.executablePath;
 
     const browser = await puppeteer.launch({
-      headless: true,
-      executablePath: executablePath,
-      // Args required for running in serverless/container environments
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: chromium.args,
+      executablePath: executablePath || puppeteer.executablePath(), // Fallback for local dev
+      headless: chromium.headless,
     });
     environment.log.info("Browser started successfully");
     environment.setBrowser(browser);

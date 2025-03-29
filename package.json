@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev ",
-    "build": "npx prisma db push && npx prisma generate && npx @puppeteer/browsers install chrome@stable --cache-dir /tmp/puppeteer && next build",
+    "build": "npx prisma db push && npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "npx prisma generate",
@@ -12,10 +12,6 @@
     "studio": "npx prisma studio"
   },
   "dependencies": {
-    "autoprefixer": "10.4.14",
-    "postcss": "8.4.21",
-    "tailwindcss": "3.3.0",
-    "tailwindcss-animate": "^1.0.7",
     "@clerk/nextjs": "^6.11.0",
     "@hookform/resolvers": "^3.10.0",
     "@prisma/client": "^6.5.0",
@@ -50,7 +46,9 @@
     "@tanstack/react-query": "^5.66.0",
     "@vercel/analytics": "^1.5.0",
     "@xyflow/react": "^12.4.2",
+    "autoprefixer": "10.4.14",
     "cheerio": "^1.0.0-rc.12",
+    "chrome-aws-lambda": "^10.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -66,7 +64,8 @@
     "nextjs-toploader": "^3.7.15",
     "node-fetch": "^2.7.0",
     "openai": "^4.89.1",
-    "puppeteer": "^24.2.1",
+    "postcss": "8.4.21",
+    "puppeteer-core": "^24.4.0",
     "react": "18.2.0",
     "react-countup": "^6.5.3",
     "react-day-picker": "^8.10.1",
@@ -77,6 +76,8 @@
     "sonner": "^1.7.4",
     "stripe": "^17.7.0",
     "tailwind-merge": "^3.0.1",
+    "tailwindcss": "3.3.0",
+    "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
     "zod": "^3.24.1"
   },
