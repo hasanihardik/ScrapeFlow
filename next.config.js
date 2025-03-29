@@ -3,8 +3,8 @@ const path = require('path');
 
 const nextConfig = {
   experimental: {
-    // Use chrome-aws-lambda and puppeteer-core
-    serverComponentsExternalPackages: ['chrome-aws-lambda', 'puppeteer-core'],
+    // Include both puppeteer and puppeteer-core
+    serverComponentsExternalPackages: ['puppeteer', 'puppeteer-core'],
   },
   typescript: {
     ignoreBuildErrors: true,
@@ -20,7 +20,10 @@ const nextConfig = {
       '@components': path.join(__dirname, 'components'),
       '@ui': path.join(__dirname, 'components/ui'),
     };
-    // No longer need chrome-launcher specific handling
+    // Ensure chrome-launcher is handled correctly if puppeteer uses it internally
+    if (isServer) {
+      config.externals.push('chrome-launcher');
+    }
     return config;
   }
 };
