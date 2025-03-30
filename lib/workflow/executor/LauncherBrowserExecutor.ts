@@ -8,27 +8,17 @@ export const LauncherBrowserExecutor = async (
   try {
     const websiteUrl = environment.getInput("Website Url");
 
-    let browser;
-    
-    if (process.env.VERCEL === '1' && process.env.BROWSERLESS_TOKEN) {
-      // Use browserless.io in production
-      browser = await puppeteer.connect({
-        browserWSEndpoint: `wss://chrome.browserless.io?token=${process.env.BROWSERLESS_TOKEN}`
-      });
-    } else {
-      // Use local Chrome in development
-      browser = await puppeteer.launch({
-        args: [
-          '--no-sandbox',
-          '--disable-setuid-sandbox',
-          '--disable-dev-shm-usage',
-          '--disable-gpu',
-          '--hide-scrollbars',
-          '--disable-web-security'
-        ],
-        headless: true
-      });
-    }
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--disable-gpu',
+        '--window-size=1920x1080'
+      ]
+    });
     environment.log.info("Browser started successfully");
     environment.setBrowser(browser);
     const page = await browser.newPage();
