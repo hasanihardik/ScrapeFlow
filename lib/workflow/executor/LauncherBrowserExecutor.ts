@@ -8,17 +8,21 @@ export const LauncherBrowserExecutor = async (
   try {
     const websiteUrl = environment.getInput("Website Url");
 
-    const browser = await puppeteer.launch({
-      headless: true,
+    const isVercel = process.env.VERCEL === '1';
+    const options = {
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--disable-gpu',
-        '--window-size=1920x1080'
-      ]
-    });
+        '--single-process',
+      ],
+      headless: true,
+      ...(isVercel && {
+        executablePath: '/usr/bin/google-chrome',
+      }),
+    };
+
+    const browser = await puppeteer.launch(options);
     environment.log.info("Browser started successfully");
     environment.setBrowser(browser);
     const page = await browser.newPage();
